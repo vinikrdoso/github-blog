@@ -17,6 +17,7 @@ export async function getCompleteIssue(number: number) {
     `/repos/vinikrdoso/state-management-playground-redux/issues/${number} `,
   )
 
+  console.log('🚀 ~ getCompleteIssue ~ selectedData:', response)
   const selectedData = {
     number: response.data.number,
     title: response.data.title,

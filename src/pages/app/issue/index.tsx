@@ -11,6 +11,7 @@ import { getCompleteIssue } from '@/api/get-complete-issue'
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 export function IssuePost() {
   const { id } = useParams()
@@ -18,7 +19,7 @@ export function IssuePost() {
   const postNumber = Number(id)
 
   const { data: issue } = useQuery({
-    queryKey: ['profile'],
+    queryKey: ['issue'],
     queryFn: () => getCompleteIssue(postNumber),
   })
 
@@ -76,7 +77,7 @@ export function IssuePost() {
         </div>
       </div>
       <div className="max-w-[864px] text-base-text py-10 px-8">
-        <Markdown>{issue?.body}</Markdown>
+        <Markdown remarkPlugins={[remarkGfm]}>{issue?.body}</Markdown>
       </div>
     </div>
   )

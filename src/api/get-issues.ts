@@ -15,7 +15,6 @@ export interface GetIssuesResponse {
 }
 
 export async function getIssues({ filter }: GetIssuesQuery) {
-  console.log('🚀 ~ getIssues ~ filter:', filter)
   const repo = 'repo:vinikrdoso/state-management-playground-redux'
   const response = await api.get<GetIssuesResponse>('/search/issues', {
     params: {

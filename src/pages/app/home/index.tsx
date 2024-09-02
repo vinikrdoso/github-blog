@@ -43,8 +43,6 @@ export function Home() {
 
   const handleIssuesFilter = useCallback(
     ({ filter }: IssuesFilterData) => {
-      console.log('🚀 ~ Home ~ filter:', filter)
-
       setSearchParams((state) => {
         if (filter) {
           state.set('filter', filter)
