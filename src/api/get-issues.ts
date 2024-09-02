@@ -1,33 +1,36 @@
 import { api } from '@/lib/axios'
 
 export interface GetIssuesQuery {
-  filter?: string | null
+  filter?: string | null | undefined
 }
 
-export interface GetOrdersResponse {
-  orders: {
-    orderId: string
-    createdAt: string
-    status: 'pending' | 'canceled' | 'processing' | 'delivering' | 'delivered'
-    customerName: string
-    total: number
+export interface GetIssuesResponse {
+  total_count: number
+  items: {
+    number: number
+    title: string
+    body: string
+    created_at: string
   }[]
-  meta: {
-    pageIndex: number
-    perPage: number
-    totalCount: number
-  }
 }
 
 export async function getIssues({ filter }: GetIssuesQuery) {
   console.log('🚀 ~ getIssues ~ filter:', filter)
-  const response = await api.get<GetOrdersResponse>('/search/issues', {
+  const repo = 'repo:vinikrdoso/state-management-playground-redux'
+  const response = await api.get<GetIssuesResponse>('/search/issues', {
     params: {
-      q: `${filter}`,
-      repo: 'vinikrdoso/state-management-playground-redux',
+      q: `${filter} ${repo}`,
     },
   })
-  console.log('🚀 ~ getIssues ~ response:', response)
 
-  return response.data
+  const selectedData = response.data.items.map((issue) => {
+    return {
+      number: issue.number,
+      title: issue.title,
+      body: issue.body,
+      created_at: issue.created_at,
+    }
+  })
+
+  return { ...response.data, items: selectedData }
 }

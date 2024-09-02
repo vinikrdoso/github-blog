@@ -8,7 +8,7 @@ export function App() {
     <div className=" bg-base-background">
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
-      </QueryClientProvider>{' '}
+      </QueryClientProvider>
     </div>
   )
 }
